@@ -322,21 +322,32 @@
         window.scrollY > 20 ? '0 4px 24px rgba(0,0,0,0.06)' : 'none';
     });
 
-    // Hamburger mobile menu toggle
-    const hamburger = document.querySelector('.hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    hamburger.addEventListener('click', () => {
-      const open = mobileMenu.classList.toggle('open');
-      hamburger.setAttribute('aria-expanded', open);
-      document.body.style.overflow = open ? 'hidden' : '';
-    });
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
+    // Hamburger mobile menu toggle — bfcache-safe
+    function initMenu() {
+      const hamburger = document.querySelector('.hamburger');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (!hamburger || !mobileMenu) return;
+      // Reset any stale open state (e.g. restored from bfcache)
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      // Use onclick so re-running initMenu never stacks duplicate listeners
+      hamburger.onclick = () => {
+        const open = mobileMenu.classList.toggle('open');
+        hamburger.setAttribute('aria-expanded', open);
+        document.body.style.overflow = open ? 'hidden' : '';
+      };
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.onclick = () => {
+          mobileMenu.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        };
       });
-    });
+    }
+    initMenu();
+    // Re-init on bfcache restore (back/forward navigation)
+    window.addEventListener('pageshow', () => { initMenu(); });
   </script>
 </body>
 </html>
