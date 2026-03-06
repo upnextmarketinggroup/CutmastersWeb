@@ -49,7 +49,7 @@
       letter-spacing: 0.14em !important; transition: background 0.25s !important;
     }
     .nav-book:hover { background: var(--blush-drk) !important; }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
     .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--charcoal); transition: transform 0.25s, opacity 0.2s; }
     .hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
     .hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
@@ -57,7 +57,7 @@
     /* MOBILE MENU */
     .mobile-menu { display: none; position: fixed; inset: 0; background: var(--white); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
     .mobile-menu.open { display: flex; }
-    .mobile-menu a { font-size: 1.4rem; letter-spacing: 0.1em; color: var(--charcoal); text-decoration: none; }
+    .mobile-menu a { font-size: 1.4rem; letter-spacing: 0.1em; color: var(--charcoal); text-decoration: none; display: flex; align-items: center; min-height: 44px; padding: 0 1.5rem; }
     .mobile-menu a:hover { color: var(--rose); }
 
     /* HERO BANNER */
@@ -189,7 +189,7 @@
       .book-strip { padding: 4rem 6%; }
       footer { flex-direction: column; text-align: center; }
       .footer-links { flex-direction: column; align-items: center; gap: 0; }
-      .footer-links a { min-height: 44px; padding: 0.5rem 1.5rem; justify-content: center; }
+      .footer-links a { min-height: 44px; padding: 0.5rem 1.5rem; display: flex; align-items: center; justify-content: center; }
       .nav-logo img { height: 72px; }
     }
     /* ── ACCESSIBILITY ───────────────────────────────────────── */

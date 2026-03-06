@@ -63,7 +63,7 @@
       letter-spacing: 0.14em !important; transition: background 0.25s !important;
     }
     .nav-book:hover { background: var(--blush-drk) !important; }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
     .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--charcoal); transition: transform 0.25s, opacity 0.2s; }
     .hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
     .hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
@@ -71,7 +71,7 @@
     /* MOBILE MENU */
     .mobile-menu { display: none; position: fixed; inset: 0; background: var(--white); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
     .mobile-menu.open { display: flex; }
-    .mobile-menu a { font-size: 1.4rem; letter-spacing: 0.1em; color: var(--charcoal); text-decoration: none; }
+    .mobile-menu a { font-size: 1.4rem; letter-spacing: 0.1em; color: var(--charcoal); text-decoration: none; display: flex; align-items: center; min-height: 44px; padding: 0 1.5rem; }
     .mobile-menu a:hover { color: var(--rose); }
 
     /* ═══ HERO ═══ */
@@ -113,10 +113,10 @@
     }
     .btn-primary {
       background: var(--rose); color: var(--white);
-      padding: 1rem 2.6rem; font-family: 'Jost', sans-serif;
+      padding: 1rem 2.6rem; min-height: 44px; font-family: 'Jost', sans-serif;
       font-size: 0.74rem; font-weight: 600; letter-spacing: 0.18em;
       text-transform: uppercase; border: none; border-radius: 2px;
-      cursor: pointer; text-decoration: none; display: inline-block;
+      cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center;
       transition: background 0.25s, transform 0.2s;
     }
     .btn-primary:hover { background: var(--blush-drk); transform: translateY(-2px); }
@@ -486,7 +486,7 @@
       .hamburger { display: flex; }
       footer { flex-direction: column; text-align: center; }
       .footer-links { flex-direction: column; align-items: center; gap: 0; }
-      .footer-links a { min-height: 44px; padding: 0.5rem 1.5rem; justify-content: center; }
+      .footer-links a { min-height: 44px; padding: 0.5rem 1.5rem; display: flex; align-items: center; justify-content: center; }
       .services-book-strip { flex-direction: column; text-align: center; }
       #book { padding: 4rem 6%; }
       #women-spotlight { padding: 4rem 6%; }
@@ -500,6 +500,8 @@
       .book-options { gap: 0.8rem; }
       .book-option { min-width: 120px; padding: 1.2rem 1rem; }
       .nav-logo img { height: 72px; }
+      /* btn-ghost: expand tap area on touch screens */
+      .btn-ghost { min-height: 44px; display: inline-flex; align-items: center; padding: 0.5rem 0.25rem; }
     }
     /* ── ACCESSIBILITY ───────────────────────────────────────── */
     /* Skip link: hidden off-screen until keyboard-focused */
