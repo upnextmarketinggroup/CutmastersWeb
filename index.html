@@ -1106,7 +1106,6 @@
 
     // ═══ EMAIL SIGNUP MODAL ═══
     (function () {
-      const STORAGE_KEY = 'cm_signup_dismissed_v2';
       const overlay = document.getElementById('signup-overlay');
       const form    = document.getElementById('signup-form');
       const formWrap = document.getElementById('signup-form-wrap');
@@ -1115,17 +1114,14 @@
       function closeModal() {
         overlay.classList.remove('active');
         document.body.style.overflow = '';
-        localStorage.setItem(STORAGE_KEY, '1');
       }
 
-      // Show after 2 seconds, only if not already dismissed
-      if (!localStorage.getItem(STORAGE_KEY)) {
-        setTimeout(() => {
-          overlay.classList.add('active');
-          document.body.style.overflow = 'hidden';
-          document.getElementById('signup-name').focus();
-        }, 2000);
-      }
+      // Show after 2 seconds on every page load
+      setTimeout(() => {
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        document.getElementById('signup-name').focus();
+      }, 2000);
 
       // Close via X button or "No thanks"
       document.getElementById('signup-close').addEventListener('click', closeModal);
@@ -1141,7 +1137,7 @@
         if (e.key === 'Escape' && overlay.classList.contains('active')) closeModal();
       });
 
-      // AJAX submit to Formspree
+      // AJAX submit to n8n webhook
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const btn = document.getElementById('signup-submit');
@@ -1155,7 +1151,6 @@
           if (res.ok) {
             formWrap.style.display = 'none';
             success.style.display = 'block';
-            localStorage.setItem(STORAGE_KEY, '1');
             setTimeout(closeModal, 2800);
           } else {
             btn.textContent = 'Try Again';
