@@ -546,7 +546,6 @@
       align-items: center; justify-content: center;
       padding: 5vh 5vw;
     }
-    #signup-overlay.active { display: flex; }
     #signup-modal {
       position: relative;
       background: var(--white);
@@ -1106,45 +1105,43 @@
 
     // ═══ EMAIL SIGNUP MODAL ═══
     (function () {
-      const overlay = document.getElementById('signup-overlay');
-      const form    = document.getElementById('signup-form');
-      const formWrap = document.getElementById('signup-form-wrap');
-      const success  = document.getElementById('signup-success');
+      var overlay  = document.getElementById('signup-overlay');
+      var form     = document.getElementById('signup-form');
+      var formWrap = document.getElementById('signup-form-wrap');
+      var success  = document.getElementById('signup-success');
+
+      function openModal() {
+        overlay.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        document.getElementById('signup-name').focus();
+      }
 
       function closeModal() {
-        overlay.classList.remove('active');
+        overlay.style.display = 'none';
         document.body.style.overflow = '';
       }
 
-      // Show after 2 seconds on every page load
-      setTimeout(() => {
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        document.getElementById('signup-name').focus();
-      }, 2000);
+      // Always show 2 seconds after every page load — no localStorage check
+      setTimeout(openModal, 2000);
 
-      // Close via X button or "No thanks"
       document.getElementById('signup-close').addEventListener('click', closeModal);
       document.getElementById('signup-no-thanks').addEventListener('click', closeModal);
 
-      // Close on overlay click (outside modal)
-      overlay.addEventListener('click', (e) => {
+      overlay.addEventListener('click', function(e) {
         if (e.target === overlay) closeModal();
       });
 
-      // Close on Escape key
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && overlay.classList.contains('active')) closeModal();
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay.style.display === 'flex') closeModal();
       });
 
-      // AJAX submit to n8n webhook
-      form.addEventListener('submit', async (e) => {
+      form.addEventListener('submit', async function(e) {
         e.preventDefault();
-        const btn = document.getElementById('signup-submit');
+        var btn = document.getElementById('signup-submit');
         btn.textContent = 'Sending…';
         btn.disabled = true;
         try {
-          const res = await fetch(form.action, {
+          var res = await fetch(form.action, {
             method: 'POST',
             body: new FormData(form)
           });
@@ -1156,7 +1153,7 @@
             btn.textContent = 'Try Again';
             btn.disabled = false;
           }
-        } catch {
+        } catch(err) {
           btn.textContent = 'Try Again';
           btn.disabled = false;
         }
