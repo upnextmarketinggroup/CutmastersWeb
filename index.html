@@ -727,13 +727,13 @@
         <form id="signup-form" action="https://n8n-gah1.onrender.com/webhook/3e5b688d-0d5b-4171-bcf8-a2ac7f32af51" method="POST">
           <div class="signup-field">
             <label for="signup-name">Your Name</label>
-            <input type="text" id="signup-name" name="name" placeholder="First name" required autocomplete="given-name">
+            <input type="text" id="signup-name" name="name" placeholder="First name" required autocomplete="given-name" disabled>
           </div>
           <div class="signup-field">
             <label for="signup-email">Email Address</label>
-            <input type="email" id="signup-email" name="email" placeholder="you@example.com" required autocomplete="email">
+            <input type="email" id="signup-email" name="email" placeholder="you@example.com" required autocomplete="email" disabled>
           </div>
-          <button type="submit" id="signup-submit">Subscribe Now</button>
+          <button type="submit" id="signup-submit" disabled>Subscribe Now</button>
         </form>
         <p class="signup-skip"><button type="button" id="signup-no-thanks">No thanks</button></p>
       </div>
@@ -1219,28 +1219,9 @@
         if (e.key === 'Escape' && overlay.style.display === 'flex') closeModal();
       });
 
-      form.addEventListener('submit', async function(e) {
+      // FORM DISABLED — submit handler blocked
+      form.addEventListener('submit', function(e) {
         e.preventDefault();
-        var btn = document.getElementById('signup-submit');
-        btn.textContent = 'Sending…';
-        btn.disabled = true;
-        try {
-          var res = await fetch(form.action, {
-            method: 'POST',
-            body: new FormData(form)
-          });
-          if (res.ok) {
-            formWrap.style.display = 'none';
-            success.style.display = 'block';
-            setTimeout(closeModal, 2800);
-          } else {
-            btn.textContent = 'Try Again';
-            btn.disabled = false;
-          }
-        } catch(err) {
-          btn.textContent = 'Try Again';
-          btn.disabled = false;
-        }
       });
     })();
   </script>
